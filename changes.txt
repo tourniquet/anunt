@@ -1,0 +1,50 @@
+22.12.2015 ver 0.15.12
+  added navbar
+  responsive homepage web design - changed google ads, big banner on pc, small 100% width banner on mobile devices
+
+17.12.2015 ver 0.15.11
+	finally, resolved problem with gm async images resizing
+	removed label button for old standard input type="file"
+
+
+20.03.2015 ver 0.13.0 - add pagination to category
+19.03.2015 ver 0.12.2 - added pagination to index/home page
+12.03.2015 ver 0.12.1 - w3 validator passed all pages
+11.03.2015 ver 0.12.0 - added Bootstrap
+09.03.2015 ver 0.11.2 - user can type only numbers in 'phone' and 'price' input fields
+08.03.2015 ver 0.11.1 - removed hideImageDiv.js for Nunjucks 'if' into template
+04.03.2015 ver 0.11.0 - Nodemailer - send ad ID to user email
+25.02.2015 ver 0.10.0 - added automatic convertor to euro, dollars and lei from user price
+19.02.2015 ver 0.9.1   - resolved problem with non-existent ad and server crash
+16.02.2015 ver 0.9.0   - added nunjucks, mongoose, crated MongoDB database.
+19.01.2015 ver 0.8.0   - no more ads from 999.md
+07.01.2015 ver 0.7.12 - minor changes. added meta keywords and meta description. google analytics code added to index.html. deleted analytics.js file
+07.01.2015 ver 0.7.11 - code optimization (adsCount.js)
+06.01.2015 ver 0.7.10 - minor bug fixed. added category "Altele" (Other)
+06.01.2015 ver 0.7.9 - if ad have a thumbnail, user see the zoom icon on the left side
+04.01.2015 ver 0.7.8 - on mouse over link which contain image, user see thumbnail
+23.12.2014 ver 0.7.7 - added gm module to generate thumbnails and resize big images
+22.12.2014 ver 0.7.6 - added jQuery validation
+19.12.2014 ver 0.7.5 - changed showAd script name to renderPage. renamed div id from adMessage to ad-Message - adBlock no block this page anymore
+19.12.2014 ver 0.7.4 - add images to show ad page. added lightbox2 plugin (http://lokeshdhakar.com/projects/lightbox2/). if user not uploaded any file, the path file will be empty string
+08.12.2014 ver 0.7.3 - upload form allow only images (.jpg, .png, .gif). formidable was configured to parse images
+07.12.2014 ver 0.7.2 - ads published on site will opened now on the same page
+29.11.2014 ver 0.7.1 - remove createDate variable, now get date directly with new Date();
+11.11.2014 ver 0.7.0 - added feedback script. changed version to v0.7.0
+10.11.2014 ver 0.6.3 - minor bug fixed (target _blank). add useful information pn show ad page. changed version to v0.6.3
+05.11.2014 ver 0.6.2 - moved adPostedMessage function to .js file. In showAd.js changed "getUrl.slice(22)" with "getUrl.split("/")[3]"
+04.11.2014 ver 0.6.1 - using POST instead GET. Moved site to Digital Ocean VPS
+03.11.2014 ver 0.6.0 - started using node.js, express, nunjucks. added posibility to post adds
+09.09.2014 ver 0.5.0 - added counter to menu list
+03.08.2014 ver 0.4.2 - minor changes - optimized adsListing line in pagination.js and getAdsByCategory.js, removed ul indentation from ads listing
+31.08.2014 ver 0.4.2 - changed table with list, minor changes in style.css
+30.08.2014 ver 0.4.1 - long ads name is splited now to fit in one line
+29.08.2014 ver 0.4.0 - added pagination
+08.08.2014 ver 0.3.2 - set menu position to fixed
+04.08.2014 ver 0.3.1 - optimized category script
+02.08.2014 ver 0.3.0 - added category
+05.07.2014 ver 0.2.3 - now js scripts stand in separated files
+20.05.2014 ver 0.2.1 - now publish only date from site, without hours and minutes
+16.05.2014 ver 0.2.0 - changed parser, now can extract price and date from site and show it on site.
+14.05.2014 ver 0.1.2 - minor changes. Wrong address in google analytics.
+28.04.2014 ver 0.1.1 - bug fixed, in Opera 12.17 listing was aligned to center, added in style.css div.someDiv "margin: 0 auto;", early was so <body><center> </center></body>

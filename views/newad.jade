@@ -1,0 +1,107 @@
+extends ./template.jade
+
+block title
+  title Postează anunţ
+
+block content
+  #main-content
+    form#form-new-ad.form.form-horizontal(action="/adposted", method="POST", enctype="multipart/form-data")
+      .form-group
+        label.col-xs-12.col-sm-12.col-md-2.col-lg-2.control-label(for="form-ad-category") categorie
+        .col-xs-12.col-sm-12.col-md-4.col-lg-4
+          select#form-ad-category.form-control.input-sm(name="form-ad-category", onchange="addOptions()")
+            option(value="", selected) selectaţi categoria
+            option(value="realEstate") Imobiliare
+            option(value="transport") Transport
+            option(value="repairs") Construcţii şi reparaţii
+            option(value="furniture") Mobilă şi interior
+            option(value="household") Tehnică de uz casnic
+            option(value="jobs") Oferte de lucru
+            option(value="computers") Calculatoare şi periferice
+            option(value="phones") Telefoane
+            option(value="clothingfootwear") Haine şi încălţăminte
+            option(value="services") Servicii
+            option(value="other") Altele
+
+      .form-group
+        label.col-xs-12.col-sm-12.col-md-2.col-lg-2.control-label(for="form-ad-subcategory") subcategorie
+        .col-xs-12.col-sm-12.col-md-4.col-lg-4
+          select#form-ad-subcategory.form-control.input-sm(name="form-ad-subcategory")
+
+      .form-group
+        label.col-xs-12.col-sm-12.col-md-2.col-lg-2.control-label(for="form-ad-title") titlu
+        .col-xs-12.col-sm-12.col-md-8.col-lg-8
+          input#form-ad-title.form-control.input-sm(name="form-ad-title", placeholder="titlul anunţului")
+
+      .form-group
+        label.col-xs-12.col-sm-12.col-md-2.col-lg-2.control-label(for="form-ad-description") descriere
+        .col-xs-12.col-sm-12.col-md-8.col-lg-8
+          textarea#form-ad-description.form-control(name="form-ad-description", placeholder="mesajul anunţului", rows="5")
+
+      .form-group
+        label.col-xs-12.col-sm-12.col-md-2.col-lg-2.control-label(for="form-first-image") imagine (1)
+        .col-xs-12.col-sm-12.col-md-4.col-lg-4
+          input#form-first-image(name="form-first-image", accept="image/jpeg,image/png,image/gif", type="file")
+
+      .form-group
+        label.col-xs-12.col-sm-12.col-md-2.col-lg-2.control-label(for="form-second-image") imagine (2)
+        .col-xs-12.col-sm-12.col-md-4.col-lg-4
+          input#form-second-image(name="form-second-image", accept="image/jpeg,image/png,image/gif", type="file")
+
+      .form-group
+        label.col-xs-12.col-sm-12.col-md-2.col-lg-2.control-label(for="form-third-image") imagine (3)
+        .col-xs-12.col-sm-12.col-md-4.col-lg-4
+          input#form-third-image(name="form-third-image", accept="image/jpeg,image/png,image/gif", type="file")
+
+      .form-group
+        label.col-xs-12.col-sm-12.col-md-2.col-lg-2.control-label(for="form-ad-contactname") nume de contact
+        .col-xs-12.col-sm-12.col-md-4.col-lg-4
+          input#form-ad-contactname.form-control.input-sm(name="form-ad-contactname", placeholder="de ex. Ion")
+
+      .form-group
+        label.col-xs-12.col-sm-12.col-md-2.col-lg-2.control-label(for="form-ad-phone") telefon de contact
+        .col-xs-12.col-sm-12.col-md-4.col-lg-4
+          input#form-ad-phone.form-control.input-sm(name="form-ad-phone", placeholder="telefon", type="tel", onkeypress="return isNumberKey(event)")
+
+      .form-group.has-feedback
+        label.col-xs-12.col-sm-12.col-md-2.col-lg-2.control-label(for="form-ad-price") preţ
+        .col-xs-6.col-sm-6.col-md-2.col-lg-2
+          input#form-ad-price.form-control(name="form-ad-price", type="tel", onkeypress="return isNumberKey(event)")
+          br
+
+        .col-xs-6.col-sm-6.col-md-2.col-lg-2
+          select.form-control(name="form-ad-currency")
+            option lei
+            option $
+            option €
+
+      .form-group
+        .col-xs-12.col-sm-12.col-md-12.col-lg-12.text-center
+          input#post-ad-button.btn.btn-primary.waves-effect.waves-light.m-b-5(value="Postează", type="submit", onclick="replaceQuotation();")
+
+block scripts
+  //- rules for validating form
+  script(src="js/validateForm.js")
+
+  //- add options to subcategory select
+  script(src="js/addSubCategoriesToForm.js")
+
+  //- allow only numbers in 'price' and 'phone' area
+  script(type="text/javascript").
+    var isNumberKey = function (evt) {
+      var charCode = (evt.which) ? evt.which : event.keyCode;
+
+      if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+
+      return true;
+    };
+
+  script(type="text/javascript").
+    var replaceQuotation = function() {
+      var titleInput = document.getElementById('form-ad-title');
+      var rawString = titleInput.value;
+      var regEx = /\"/g;
+
+      titleInput.value = rawString.replace(regEx, '\'');
+    };

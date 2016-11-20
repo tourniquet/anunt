@@ -1,0 +1,11 @@
+NodeJS - http://nodejs.org
+ExpressJS - http://expressjs.com
+GM - https://www.npmjs.com/package/gm
+formidable - https://www.npmjs.com/package/formidable
+MongoDB - https://www.mongodb.org
+Mongoose - http://mongoosejs.com
+jQuery - http://jquery.com
+jQuery validation - http://jqueryvalidation.org
+Bootstrap - http://getbootstrap.com
+Lightbox - http://lokeshdhakar.com/projects/lightbox2
+Jade - http://jade-lang.com/

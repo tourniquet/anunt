@@ -1,0 +1,337 @@
+@media (max-width: 767px) {
+	body {
+		margin-top: 75px !important;
+	}
+
+	.navbar-header button {
+		border-color: transparent !important;
+	}
+
+	#search-form {
+		margin-top: 20px !important;
+	}
+
+	#top-adblock {
+		margin-bottom: 25px;
+	}
+
+	#ads-listing li {
+		padding-left: 5px;
+	}
+
+	.ad-name-thumb, .ad-name {
+		width: 100%;
+	}
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+	#search-form-div {
+		float: left;
+		width: 60%;
+	}
+
+	#search-form {
+		width: 118%;
+	}
+
+	#right-ul {
+		width: 24%;
+		float: right;
+	}
+
+	#right-ul ul {
+		float: right !important;
+	}
+
+	#ads-listing {
+		width: 496px;
+	}
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+	#search-form-div  {
+		float: left;
+		width: 68%;
+	}
+
+	#search-form {
+		width: 122%;
+	}
+
+	#right-ul {
+		width: 20%;
+		float: right;
+	}
+
+	#right-ul ul {
+		float: right !important;
+	}
+
+	#ads-listing {
+		width: 462px;
+	}
+}
+
+@media (min-width: 1200px) {
+	#search-form-div  {
+		float: left;
+		width: 70%;
+	}
+
+	#search-form {
+		width: 128%;
+	}
+
+	#right-ul {
+		width: 20%;
+		float: right;
+	}
+
+	#right-ul ul {
+		float: right !important;
+	}
+
+	#ads-listing {
+		width: 662px;
+	}
+}
+
+body {
+	font-family: 'Roboto', sans-serif !important;
+	position: relative;
+	margin: 0 auto;
+	margin-top: 100px;
+}
+
+.navbar-header img {
+	margin-bottom: -12px;
+	margin-top: -12px;
+	width: 34px;
+}
+
+#collapse-menu {
+	float: left;
+	margin-left: 15px;
+}
+
+#search-form .input-group {
+	width: 100%;
+}
+
+.btn {
+	font-family: 'Roboto', sans-serif !important;
+}
+
+.form-control:focus {
+	border-color: rgba(82, 168, 236, 0.8);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(82, 168, 236, .6);
+	outline: 0 none;
+}
+
+.error {
+	color: red;
+	padding-left: 10px;
+	padding-top: 5px;
+}
+
+a:link, a:visited, a:active {
+	text-decoration: none;
+	color: black;
+}
+
+a:hover {
+	color: red;
+}
+
+#main-content {
+	margin-top: 100px;
+}
+
+#menu-list {
+	display: inline-block;
+	width: 200px;
+}
+
+#menu-list, #ads-listing, #ads-right {
+	vertical-align: top;
+}
+
+#ads-listing {
+	display: inline-block;
+	text-align: right;
+}
+
+.ad-name {
+	float: left;
+	text-align: left;
+}
+
+.ad-name-thumb {
+	float: left;
+	text-align: left;
+	padding-left: 15px;
+	background: url("../img/zoom.png") no-repeat;
+}
+
+.ad-price {
+	color: #6c3f80;
+	font-weight: 700;
+	width: 114px;
+}
+
+.ad-date {
+	float: right;
+	text-align: right;
+	width: 114px;
+}
+
+.hidden-image {
+	display: none;
+  position: fixed;
+}
+
+#ads-right {
+	display: inline-block;
+}
+
+#navigator {
+	height: 22px;
+	margin: 50px auto;
+	text-align: center;
+	clear: both;
+}
+
+ul {
+	list-style-type: none;
+	padding-left: 0;
+}
+
+sup {
+	color: red;
+}
+
+.footer {
+	margin-top: 50px;
+}
+
+.project-version {
+	margin-top: 15px;
+}
+
+.social-buttons a:link { color: #777; }
+.social-buttons a:visited {	color: #777; }
+.social-buttons a:visited {	color: #777; }
+.social-buttons a:hover { color: #EF5A41; }
+
+.fa {
+	margin-right: 5px;
+}
+
+/****************************/
+/****** new ad style ********/
+/****************************/
+
+#post-ad-button {
+	margin: 50px 0 -15px;
+}
+
+.upload-label {
+	font-weight: 600;
+}
+
+/****************************/
+/****** adposted style ********/
+/****************************/
+
+.ad-posted {
+	margin: 50px auto;
+}
+
+.new-ad-url a {
+	color: red !important;
+}
+
+/****************************/
+/****** show ad style *****/
+/***************************/
+
+#category a:link { color: rgb(0, 133, 214); }
+#category a:visited { color: rgb(0, 133, 214); }
+#category a:hover { color: red; }
+#category a:active { color: rgb(0, 133, 214); }
+
+#ad-title {
+	margin-top: 0;
+	margin-bottom: 15px;
+}
+
+#images {
+	/*margin-top: 25px;*/
+}
+
+#price {
+	font-size: 18px;
+	margin-top: 20px;
+	text-align: left;
+}
+
+#price-label {
+	color: gray
+}
+
+.converted {
+	color: gray;
+}
+
+#phone {
+	font-size: 18px;
+	margin-top: 10px;
+	text-align: left;
+	text-transform: capitalize;
+}
+
+#phone-label {
+	color: gray;
+}
+
+hr {
+	height: 1px;
+	border: none;
+	color: #fff;
+	background-color: #c4c4c4;
+	width: 90%;
+	text-align: center;
+	margin-top: 15px;
+}
+
+#useful-info {
+	clear: both;
+	background: #f7f7f7;
+	color: gray;
+	margin-top: 25px;
+}
+
+pre {
+	margin-top: 25px;
+	white-space: pre-wrap;
+	font-family: sans-serif;
+	border: 0;
+	-webkit-text-size-adjust: 100%;
+		-ms-text-size-adjust: 100%;
+}
+
+li {
+  font-family: sans-serif;
+  font-size: 12px;
+  border: 0;
+  -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+}
+
+/****************************/
+/*****    admin page   *****/
+/***************************/
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+	background-color: #dff0d8;
+}

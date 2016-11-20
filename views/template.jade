@@ -1,0 +1,131 @@
+doctype html
+html
+	head
+		block title
+			title Anunt Orhei
+
+		meta(charset="UTF-8")
+		meta(name="viewport", content="width=device-width, initial-scale=1")
+		meta(name="description", content="Ai un anunţ pentru locuitorii oraşului Orhei? Plasează-l gratis pe site-ul nostru www.AnuntOrhei.md!")
+		meta(name="keywords", content="casa, orhei, md, anunturi, gazda, chirie, vinzare, apartamente, auto, telefoane")
+
+		link(rel="stylesheet", type="text/css", media="screen", href="/css/style.min.css")
+
+		link(href='https://fonts.googleapis.com/css?family=Roboto&subset=latin,latin-ext', rel='stylesheet', type='text/css')
+
+		// Google Analytics
+		script(type='text/javascript').
+			(function (i, s, o, g, r, a, m) {
+				i['GoogleAnalyticsObject'] = r;
+				i[r] = i[r] || function () {
+									(i[r].q = i[r].q || []).push(arguments)
+								}, i[r].l = 1 * new Date();
+				a = s.createElement(o),
+								m = s.getElementsByTagName(o)[0];
+				a.async = 1;
+				a.src = g;
+				m.parentNode.insertBefore(a, m)
+			})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+			ga('create', 'UA-15399295-10', 'anuntorhei.md');
+			ga('send', 'pageview');
+
+	body
+		nav.navbar.navbar-default.navbar-fixed-top
+			.container
+				.navbar-header
+					button.navbar-toggle.collapsed(type="button", data-toggle="collapse", data-target="#user-navbar", aria-expanded="false", style="display: none;")
+						span.sr-only Toggle navigation
+						img(src="img/user.png", alt="Navbar user icon")
+
+					button#collapse-menu.navbar-toggle.collapsed(type="button", data-toggle="collapse", data-target="#menu-navbar", aria-expanded="false")
+						span.sr-only Toggle navigation
+						span.icon-bar
+						span.icon-bar
+						span.icon-bar
+
+					a.navbar-brand(href="/") Anunţ Orhei
+
+				#menu-navbar.collapse.navbar-collapse
+					#search-form-div
+						form#search-form.navbar-form.navbar-left(action="/results", method="POST", enctype="multipart/form-data")
+							.input-group
+								input#search.form-control(type="text", name="search", placeholder="căutare")
+								span.input-group-btn
+									button.btn.waves-effect.waves-light.btn-primary
+										i.glyphicon.glyphicon-search
+
+					#right-ul
+						ul.nav.navbar-nav.navbar-right.visible-xs-block
+							li: a(href="/category/realEstate") Imobiliare
+							li: a(href="/category/transport") Transport
+							li: a(href="/category/repairs") Construcţii şi reparaţii
+							li: a(href="/category/furniture") Mobilă şi interior
+							li: a(href="/category/household") Tehnică de uz casnic
+							li: a(href="/category/jobs") Oferte de lucru
+							li: a(href="/category/computers") Calculatoare şi periferice
+							li: a(href="/category/phones") Telefoane
+							li: a(href="/category/clothingfootwear") Haine şi încălţăminte
+							li: a(href="/category/services") Servicii
+							li: a(href="/category/other") Altele
+							li: p
+							li: a(href="/newad"): span.btn.btn-danger.btn-sm Postează anunţ
+
+
+				#user-navbar.collapse.navbar-collapse
+					ul.nav.navbar-nav.navbar-right.visible-xs-block
+						li: a(href="#") Link
+						li: a(href="#") Link
+						li: a(href="#") Link
+
+
+		.container
+			.row
+				#top-adblock.col-xs-12.col-sm-12.hidden-md.hidden-lg
+					script(async, src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js")
+					//- ad-top
+					ins.adsbygoogle(style="display:block", data-ad-client="ca-pub-0029006930915581", data-ad-slot="2886478146", data-ad-format="auto")
+					script.
+						(adsbygoogle = window.adsbygoogle || []).push({});
+
+
+			block content
+
+
+			.row
+				nav
+					ul.pager
+						//- Înapoi
+						li#previous-button
+
+						//- Înainte
+						li#next-button
+
+			.row
+				.col-xs-12.col-sm-12.col-md-12.text-muted.text-center.social-buttons
+					//- facebook social button
+					a(href="https://www.facebook.com/pages/Anunţ-Orhei/536112583096242", target="_blank")
+						i.fa.fa-facebook-official.fa-lg
+
+					//- ok.ru social button
+					a(href="http://ok.ru/anunt.orhei", target="_blank")
+						i.fa.fa-odnoklassniki-square.fa-lg
+
+					//- skype social button
+					a(href="skype:anuntorhei.md?chat")
+						i.fa.fa-skype.fa-lg
+
+				.col-xs-12.col-sm-12.col-md-12.text-muted.text-center.project-version.
+					2014 - 2016 | ver 0.15.15
+
+		//- all js libs bundle
+		script(src="/libs/libs.min.js")
+
+		//script.
+			$(function(){
+				$('.navbar-collapse').on('show.bs.collapse', function(e) {
+					$('.navbar-collapse').not(this).collapse('hide');
+				});
+			});
+
+
+		block scripts

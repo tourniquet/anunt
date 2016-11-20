@@ -1,0 +1,49 @@
+extends ./template.jade
+
+block title
+  title Anunţ Orhei
+
+block content
+  .row
+    ul#menu-list.hidden-xs
+
+
+    ul#ads-listing
+      each ad in ads
+        li
+          a(href="/#{ ad.url }")
+            if ad.imagesPath[0]
+              span.ad-name-thumb #{ ad.adTitle }
+              img.img-thumbnail.hidden-image(src="/uploads/thumb_#{ ad.imagesPath[0] }", alt="#{ ad.adTitle }")
+            else
+              span.ad-name #{ ad.adTitle }
+
+          if ad.price
+            span.ad-price.hidden-xs #{ ad.price }
+          else
+            span.ad-price.hidden-xs &nbsp;
+
+          span.ad-date.hidden-xs #{ ad.date }
+
+
+    include rightadblock
+
+
+block scripts
+  //- show thumbnail
+  script(src="/js/showThumb.js")
+
+  //- add subcategories
+  script(src="/js/addSubCategoriesToCategories.js")
+
+  //- show/hide Prev/Next buttons
+  script(src="/js/categoryPagination.js")
+
+  // add subcategories and category pagination scripts to window.onload
+  script(type="text/javascript").
+    var addToWindowOnload = function () {
+      addSubCategoryToCategories();		// js/addSubCategoriesToCategories.js
+      categoryPagination();				// js/categoryPagination.js
+    };
+
+    window.onload = addToWindowOnload;

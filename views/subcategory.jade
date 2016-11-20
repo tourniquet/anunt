@@ -1,0 +1,60 @@
+extends ./template.jade
+
+block title
+	title Anunţ Orhei
+
+block content
+	.row
+		ul#menu-list.hidden-xs
+
+
+		ul#ads-listing
+			each ad in ads
+				li
+					a(href="/#{ ad.url }")
+						if ad.imagesPath[0]
+							span.ad-name-thumb #{ ad.adTitle }
+							img.img-thumbnail.hidden-image(src="/uploads/thumb_#{ ad.imagesPath[0] }", alt="#{ ad.adTitle }")
+						else
+							span.ad-name #{ ad.adTitle }
+
+					if ad.price
+						span.ad-price.hidden-xs #{ ad.price }
+					else
+						span.ad-price.hidden-xs &nbsp;
+
+					span.ad-date.hidden-xs #{ ad.date }
+
+
+		include rightadblock
+
+
+block scripts
+	// show thumbnails
+	script(src="/js/showThumb.js")
+
+	// add subcategories
+	script(src="/js/addSubCategoriesToSubCategories.js")
+
+	// show/hide Prev/Next buttons
+	script(type="text/javascript").
+		var getPath = window.location.pathname.split('/');
+		var adsList = document.getElementById('ads-listing').getElementsByTagName('li');
+		var prevButton = document.getElementById('previous-button');
+		var nextButton = document.getElementById('next-button');
+
+		// hide "Înapoi" button
+		if (isNaN(getPath[getPath.length - 1]) || getPath[getPath.length - 1] === '1')
+			prevButton.style.display = 'none';
+		else
+			prevButton.innerHTML = '<a href="/' + getPath[1] + '/' + getPath[2] + '/' + (parseInt(getPath[getPath.length - 1]) - 1) + '">Înapoi</a>';
+
+		// show "Înainte" button
+		if (adsList.length === 30) {
+			if (!isNaN(parseInt(getPath[getPath.length - 1])) && getPath[getPath.length - 1] !== '1')
+				nextButton.innerHTML = '<a href="/' + getPath[1] + '/' + (getPath[getPath.length - 1] + '/') + (parseInt(getPath[getPath.length - 1]) + 1) + '">Înainte</a>';
+			else
+				nextButton.innerHTML = '<a href="/' + getPath[1] + '/' + getPath[getPath.length - 1] + '/2">Înainte</a>';
+		} else if (adsList < 30) {
+			nextButton.style.display = 'none';
+		}

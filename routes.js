@@ -1,42 +1,39 @@
-var path = require('path')
+const path = require('path')
 // formidable - module to parse forms and files
-var formidable = require('formidable')
+const formidable = require('formidable')
 // graphicmagick - module to do some work like, resize image, watermark or other stuff
-var gm = require('gm')
-// async library
-// var async = require('async');
+const gm = require('gm')
 // url - nodejs standart library to parse urls
-var url = require('url')
+const url = require('url')
 
 // moment.js
-var moment = require('moment')
+const moment = require('moment')
 moment.locale('ro')
 
-var mongose = require('mongoose')
-var Ad = mongose.model('Ad')
+const mongose = require('mongoose')
+const Ad = mongose.model('Ad')
 
 // routes
 module.exports = {
-  data: function (req, res) {
-    var query = Ad.find().limit(10)
+  data (req, res) {
+    const query = Ad.find().limit(10)
 
-    query.exec(function (err, ads) {
+    query.exec((err, ads) => {
       if (err) console.log(err)
 
       res.json(ads)
     })
   },
 
-  index: function (req, res) {
-    var pageNumber = req.params.number
-    var limitPerPage = 30
+  index (req, res) {
+    const pageNumber = req.params.number
+    const limitPerPage = 30
 
-    var query
-
+    let query
     if (pageNumber) {
       query = Ad.find().skip((pageNumber - 1) * limitPerPage).sort('-dateForSort').limit(limitPerPage)
 
-      query.exec(function (err, ad) {
+      query.exec((err, ad) => {
         if (err) console.log(err)
 
         res.render('index.jade', {
@@ -46,7 +43,7 @@ module.exports = {
     } else {
       query = Ad.find().sort('-dateForSort').limit(limitPerPage)
 
-      query.exec(function (err, ad) {
+      query.exec((err, ad) => {
         if (err) console.log(err)
 
         res.render('index.jade', {
@@ -56,18 +53,18 @@ module.exports = {
     }
   },
 
-  newad: function (req, res) {
+  newad (req, res) {
     res.render('newad.jade')
   },
 
-  adposted: function (req, res) {
+  adposted (req, res) {
     var form = new formidable.IncomingForm()
     form.uploadDir = path.join(__dirname + '/public/uploads/')
     form.keepExtensions = true
     form.maxFieldsSize = 10 * 1024 * 1024
 
     // parsing form data
-    form.parse(req, function (err, fields, files) {
+    form.parse(req, (err, fields, files) => {
       if (err) console.log(err)
 
       var images = [files['form-first-image'], files['form-second-image'], files['form-third-image']]
@@ -233,12 +230,12 @@ module.exports = {
     })
   },
 
-  showad: function (req, res) {
-    var reqUrl = url.parse(req.url, true, true).path.toString().slice(1)
+  showad (req, res) {
+    const reqUrl = url.parse(req.url, true, true).path.toString().slice(1)
 
     // increase model.views by one
     Ad.findOneAndUpdate({ 'url': reqUrl },
-      { $inc: { views: 1 } }, function (err) {
+      { $inc: { views: 1 } }, (err) => {
         if (err) console.log(err)
       }
     )
@@ -260,14 +257,14 @@ module.exports = {
     )
   },
 
-  category: function (req, res) {
-    var category = req.params.category
-    var pageNumber = req.params.pageNumber
-    var limitPerPage = 30
+  category (req, res) {
+    const category = req.params.category
+    const pageNumber = req.params.pageNumber
+    const limitPerPage = 30
 
     var query = Ad.where({ category: category }).skip((pageNumber - 1) * limitPerPage).sort('-dateForSort').limit(limitPerPage)
 
-    query.find(function (err, ad) {
+    query.find((err, ad) => {
       if (err) console.log(err)
 
       res.render('category.jade', {
@@ -276,13 +273,13 @@ module.exports = {
     })
   },
 
-  subcategory: function (req, res) {
-    var category = req.params.category
-    var subCategory = req.params.subCategory || ''
-    var pageNumber = req.params.pageNumber
-    var limitPerPage = 30
+  subcategory (req, res) {
+    const category = req.params.category
+    const subCategory = req.params.subCategory || ''
+    const pageNumber = req.params.pageNumber
+    const limitPerPage = 30
 
-    var query = Ad.where({ category: category, subCategory: subCategory }).skip((pageNumber - 1) * limitPerPage).sort('-dateForSort').limit(limitPerPage)
+    const query = Ad.where({ category: category, subCategory: subCategory }).skip((pageNumber - 1) * limitPerPage).sort('-dateForSort').limit(limitPerPage)
 
     query.find(function (err, ad) {
       if (err) console.log(err)
@@ -293,23 +290,22 @@ module.exports = {
     })
   },
 
-  searchResults: function (req, res) {
-    var pageNumber = req.params.number
-    var limitPerPage = 30
-    var form = new formidable.IncomingForm()
+  searchResults (req, res) {
+    const pageNumber = req.params.number
+    const limitPerPage = 30
+    const form = new formidable.IncomingForm()
 
-    form.parse(req, function (err, field) {
+    form.parse(req, (err, field) => {
       if (err) console.log(err)
 
       var rawRequest = field.search
       var keyword = rawRequest.toLowerCase().trim().replace(/\W+\D+/gim, '')
 
-      var query
-
+      let query
       if (pageNumber && keyword) {
         query = Ad.find({ keywords: { $regex: keyword } }).skip((pageNumber - 1) * limitPerPage).sort('-dateForSort').limit(limitPerPage)
 
-        query.exec(function (err, ad) {
+        query.exec((err, ad) => {
           if (err) console.log(err)
 
           res.render('index.jade', {
@@ -319,7 +315,7 @@ module.exports = {
       } else if (keyword) {
         query = Ad.find({ keywords: { $regex: keyword } }).sort('-dateForSort').limit(limitPerPage)
 
-        query.exec(function (err, ad) {
+        query.exec((err, ad) => {
           if (err) console.log(err)
 
           res.render('index.jade', {
@@ -333,11 +329,11 @@ module.exports = {
   },
 
   // admin panel
-  adminPanel: function (req, res) {
+  adminPanel (req, res) {
     res.render('admin.html')
   },
 
-  deleteAd: function (req) {
+  deleteAd (req) {
     var id = req.params.id
 
     Ad.findByIdAndRemove(id, function (err, ad) {
@@ -347,7 +343,7 @@ module.exports = {
     })
   },
 
-  updateDateAd: function (req) {
+  updateDateAd (req) {
     var id = req.params.id
 
     // create date, ex.: 30 oct. 2014

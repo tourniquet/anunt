@@ -88,20 +88,20 @@ block scripts
 
   //- allow only numbers in 'price' and 'phone' area
   script(type="text/javascript").
-    var isNumberKey = function (evt) {
-      var charCode = (evt.which) ? evt.which : event.keyCode;
+    const isNumberKey = function (evt) {
+      var charCode = (evt.which) ? evt.which : event.keyCode
 
       if (charCode > 31 && (charCode < 48 || charCode > 57))
-        return false;
+        return false
 
-      return true;
-    };
+      return true
+    }
 
   script(type="text/javascript").
-    var replaceQuotation = function() {
-      var titleInput = document.getElementById('form-ad-title');
-      var rawString = titleInput.value;
-      var regEx = /\"/g;
+    const replaceQuotation = function () {
+      var titleInput = document.getElementById('form-ad-title')
+      var rawString = titleInput.value
+      var regEx = /\"/g
 
-      titleInput.value = rawString.replace(regEx, '\'');
-    };
+      titleInput.value = rawString.replace(regEx, '\'')
+    }

@@ -15,11 +15,6 @@ app.set('view engine', 'jade')
 // show ad page
 app.get(/\d{8}$/, page.showad)
 
-// admin panel
-// app.get('/admin', page.adminPanel);
-// app.delete('/admin/data/:id', page.deleteAd);
-// app.put('/admin/data/:id', page.updateDateAd);
-
 // search results
 app.post('/results', page.searchResults)
 
@@ -35,11 +30,11 @@ app.get('/:category/:subCategory/:pageNumber?', page.subcategory)
 app.get('/:number?', page.index)
 
 // 404 error page
-app.use(function (req, res) {
+app.use((req, res) => {
   res.status(404)
   res.render('404.jade')
 })
 
-http.createServer(app).listen(3000, function () {
+http.createServer(app).listen(3000, () => {
   console.log('App started')
 })

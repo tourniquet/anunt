@@ -1,11 +1,11 @@
 // database connection
-var mongoose = require('mongoose')
+const mongoose = require('mongoose')
 
-var dbURI = 'mongodb://localhost:27017/mongoose'
+const dbURI = 'mongodb://localhost:27017/mongoose'
 mongoose.connect(dbURI)
 
 // new ad model schema
-var adSchema = new mongoose.Schema({
+const adSchema = new mongoose.Schema({
   dateForSort: Date,
   url: String,
   category: String,
@@ -21,4 +21,4 @@ var adSchema = new mongoose.Schema({
   views: Number
 })
 
-var Ad = mongoose.model('Ad', adSchema)
+const Ad = mongoose.model('Ad', adSchema)

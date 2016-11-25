@@ -1,71 +1,71 @@
 extends ./template.jade
 
 block title
-	title Anunt Orhei
+  title Anunt Orhei
 
 block content
-	.row
-		ul#menu-list.hidden-xs
-			li: a(href="/category/realEstate") Imobiliare
-			li: a(href="/category/transport") Transport
-			li: a(href="/category/repairs") Construcţii şi reparaţii
-			li: a(href="/category/furniture") Mobilă şi interior
-			li: a(href="/category/household") Tehnică de uz casnic
-			li: a(href="/category/jobs") Oferte de lucru
-			li: a(href="/category/computers") Calculatoare şi periferice
-			li: a(href="/category/phones") Telefoane
-			li: a(href="/category/clothingfootwear") Haine şi încălţăminte
-			li: a(href="/category/services") Servicii
-			li: a(href="/category/other") Altele
-			li: p
-			li: a(href="/newad"): span.btn.btn-danger.btn-sm Postează anunţ
+  .row
+    ul#menu-list.hidden-xs
+      li: a(href="/category/realEstate") Imobiliare
+      li: a(href="/category/transport") Transport
+      li: a(href="/category/repairs") Construcţii şi reparaţii
+      li: a(href="/category/furniture") Mobilă şi interior
+      li: a(href="/category/household") Tehnică de uz casnic
+      li: a(href="/category/jobs") Oferte de lucru
+      li: a(href="/category/computers") Calculatoare şi periferice
+      li: a(href="/category/phones") Telefoane
+      li: a(href="/category/clothingfootwear") Haine şi încălţăminte
+      li: a(href="/category/services") Servicii
+      li: a(href="/category/other") Altele
+      li: p
+      li: a(href="/newad"): span.btn.btn-danger.btn-sm Postează anunţ
 
 
-		ul#ads-listing
-			if (ads)
-				each ad in ads
-					li
-						a(href="#{ ad.url }")
-							if ad.imagesPath[0]
-								span.ad-name-thumb #{ ad.adTitle }
-								img.img-thumbnail.hidden-image(src="uploads/thumb_#{ ad.imagesPath[0] }", alt="#{ ad.adTitle }")
-							else
-								span.ad-name #{ ad.adTitle }
+    ul#ads-listing
+      if (ads)
+        each ad in ads
+          li
+            a(href="#{ ad.url }")
+              if ad.imagesPath[0]
+                span.ad-name-thumb #{ ad.adTitle }
+                img.img-thumbnail.hidden-image(src="uploads/thumb_#{ ad.imagesPath[0] }", alt="#{ ad.adTitle }")
+              else
+                span.ad-name #{ ad.adTitle }
 
-						if ad.price
-							span.ad-price.hidden-xs #{ ad.price }
-						else
-							span.ad-price.hidden-xs &nbsp;
+            if ad.price
+              span.ad-price.hidden-xs #{ ad.price }
+            else
+              span.ad-price.hidden-xs &nbsp;
 
-						span.ad-date.hidden-xs #{ ad.date }
+            span.ad-date.hidden-xs #{ ad.date }
 
 
-		include rightadblock
+    include rightadblock
 
 
 block scripts
-	//- show thumbnails
-	script(src="js/showThumb.js")
+  //- show thumbnails
+  script(src="js/showThumb.js")
 
-	//- show/hide Prev/Next buttons
-	script(type="text/javascript").
-		var getPath = window.location.pathname;
-		var adsList = document.getElementById('ads-listing').getElementsByTagName('li');
-		var prevButton = document.getElementById('previous-button');
-		var nextButton = document.getElementById('next-button');
+  //- show/hide Prev/Next buttons
+  script(type="text/javascript").
+    const getPath = window.location.pathname
+    const adsList = document.getElementById('ads-listing').getElementsByTagName('li')
+    const prevButton = document.getElementById('previous-button')
+    const nextButton = document.getElementById('next-button')
 
-		//- hide "Înapoi" button
-		if (getPath === '/' || getPath === '/1')
-			prevButton.style.display = 'none';
-		else
-			prevButton.innerHTML = '<a href="/' + (parseInt(getPath.slice(1)) - 1) + '">Înapoi</a>';
+    //- hide "Înapoi" button
+    if (getPath === '/' || getPath === '/1')
+      prevButton.style.display = 'none'
+    else
+      prevButton.innerHTML = '<a href="/' + (parseInt(getPath.slice(1)) - 1) + '">Înapoi</a>'
 
-		//- show "Înainte" button
-		if (adsList.length === 30) {
-			if (getPath !== '/' && getPath !== '/1')
-				nextButton.innerHTML = '<a href="/' + (parseInt(getPath.slice(1)) + 1) + '">Înainte</a>';
-			else
-				nextButton.innerHTML = '<a href="/2">Înainte</a>';
-		} else if (adsList < 30) {
-			nextButton.style.display = 'none';
-		}
+    //- show "Înainte" button
+    if (adsList.length === 30) {
+      if (getPath !== '/' && getPath !== '/1')
+        nextButton.innerHTML = '<a href="/' + (parseInt(getPath.slice(1)) + 1) + '">Înainte</a>'
+      else
+        nextButton.innerHTML = '<a href="/2">Înainte</a>'
+    } else if (adsList < 30) {
+      nextButton.style.display = 'none'
+    }

@@ -1,16 +1,13 @@
-var http = require('http')
-// var db = require('./db')
-var page = require('./routes')
-var express = require('express')
-var app = express()
+const http = require('http')
+const db = require('./db')
+const page = require('./routes')
+const express = require('express')
+const app = express()
 
 app.use(express.static('./public'))
 app.locals.pretty = true
 
 app.set('view engine', 'jade')
-
-// data for admin page
-// app.get('/data', page.data);
 
 // show ad page
 app.get(/\d{8}$/, page.showad)

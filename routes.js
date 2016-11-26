@@ -13,44 +13,25 @@ moment.locale('ro')
 const mongose = require('mongoose')
 const Ad = mongose.model('Ad')
 
+const limitPerPage = 30
+
 // routes
 module.exports = {
-  data (req, res) {
-    const query = Ad.find().limit(10)
-
-    query.exec((err, ads) => {
-      if (err) console.log(err)
-
-      res.json(ads)
-    })
-  },
-
   index (req, res) {
     const pageNumber = req.params.number
-    const limitPerPage = 30
-
     let query
+
     if (pageNumber) {
       query = Ad.find().skip((pageNumber - 1) * limitPerPage).sort('-dateForSort').limit(limitPerPage)
-
-      query.exec((err, ad) => {
-        if (err) console.log(err)
-
-        res.render('index.jade', {
-          ads: ad
-        })
-      })
     } else {
       query = Ad.find().sort('-dateForSort').limit(limitPerPage)
-
-      query.exec((err, ad) => {
-        if (err) console.log(err)
-
-        res.render('index.jade', {
-          ads: ad
-        })
-      })
     }
+
+    query.exec((err, ad) => {
+      if (err) console.log(err)
+
+      res.render('index.jade', { ads: ad })
+    })
   },
 
   newad (req, res) {
@@ -58,7 +39,7 @@ module.exports = {
   },
 
   adposted (req, res) {
-    var form = new formidable.IncomingForm()
+    const form = new formidable.IncomingForm()
     form.uploadDir = path.join(__dirname + '/public/uploads/')
     form.keepExtensions = true
     form.maxFieldsSize = 10 * 1024 * 1024
@@ -67,33 +48,33 @@ module.exports = {
     form.parse(req, (err, fields, files) => {
       if (err) console.log(err)
 
-      var images = [files['form-first-image'], files['form-second-image'], files['form-third-image']]
+      const images = [files['form-first-image'], files['form-second-image'], files['form-third-image']]
 
-      var rawImagesPath = []
+      let rawImagesPath = []
 
-      for (var c = 0; c < images.length; c++) {
-        if (images[c].size) rawImagesPath.push(images[c].path)
-      }
+      images.forEach((el) => {
+        if (el.size) rawImagesPath.push(el.path)
+      })
 
       // create url slicing current time, if new Date().getTime() = 1422787351345 than url = 87351345
-      var url = new Date().getTime().toString().slice(5)
+      const url = new Date().getTime().toString().slice(5)
 
-      var adTitle = fields['form-ad-title']
-      var adDescription = fields['form-ad-description']
-      var category = fields['form-ad-category']
-      var subCategory = fields['form-ad-subcategory']
-      var contactName = fields['form-ad-contactname']
-      var phone = fields['form-ad-phone']
+      const adTitle = fields['form-ad-title']
+      const adDescription = fields['form-ad-description']
+      const category = fields['form-ad-category']
+      const subCategory = fields['form-ad-subcategory']
+      const contactName = fields['form-ad-contactname']
+      const phone = fields['form-ad-phone']
 
       // concatenate price and currency in one variable, e. g. 4500 $
-      var rawPrice = fields['form-ad-price']
-      var rawCurrency = fields['form-ad-currency']
-      var price = (rawPrice) ? rawPrice + ' ' + rawCurrency : ''
+      const rawPrice = fields['form-ad-price']
+      const rawCurrency = fields['form-ad-currency']
+      const price = (rawPrice) ? rawPrice + ' ' + rawCurrency : ''
 
       var date = moment().format('D MMMM YYYY')
 
       // new images path array
-      var newImagesPath = []
+      let newImagesPath = []
 
       // process file path
       var clearImagePath = function (image) {
@@ -234,7 +215,8 @@ module.exports = {
     const reqUrl = url.parse(req.url, true, true).path.toString().slice(1)
 
     // increase model.views by one
-    Ad.findOneAndUpdate({ 'url': reqUrl },
+    Ad.findOneAndUpdate(
+      { 'url': reqUrl },
       { $inc: { views: 1 } }, (err) => {
         if (err) console.log(err)
       }
@@ -245,14 +227,8 @@ module.exports = {
       null,
       function (err, ad) {
         if (err) console.log(err)
-
-        if (ad) {
-          res.render('showad.jade', {
-            ad: ad
-          })
-        } else if (!ad) {
-          res.render('404.jade')
-        }
+        if (!ad) res.render('404.jade')
+        res.render('showad.jade', { ad: ad })
       }
     )
   },
@@ -260,16 +236,12 @@ module.exports = {
   category (req, res) {
     const category = req.params.category
     const pageNumber = req.params.pageNumber
-    const limitPerPage = 30
 
     var query = Ad.where({ category: category }).skip((pageNumber - 1) * limitPerPage).sort('-dateForSort').limit(limitPerPage)
 
     query.find((err, ad) => {
       if (err) console.log(err)
-
-      res.render('category.jade', {
-        ads: ad
-      })
+      res.render('category.jade', { ads: ad })
     })
   },
 
@@ -277,87 +249,36 @@ module.exports = {
     const category = req.params.category
     const subCategory = req.params.subCategory || ''
     const pageNumber = req.params.pageNumber
-    const limitPerPage = 30
 
     const query = Ad.where({ category: category, subCategory: subCategory }).skip((pageNumber - 1) * limitPerPage).sort('-dateForSort').limit(limitPerPage)
 
     query.find(function (err, ad) {
       if (err) console.log(err)
-
-      res.render('subcategory.jade', {
-        ads: ad
-      })
+      res.render('subcategory.jade', { ads: ad })
     })
   },
 
   searchResults (req, res) {
     const pageNumber = req.params.number
-    const limitPerPage = 30
     const form = new formidable.IncomingForm()
 
     form.parse(req, (err, field) => {
       if (err) console.log(err)
 
-      var rawRequest = field.search
-      var keyword = rawRequest.toLowerCase().trim().replace(/\W+\D+/gim, '')
-
+      const rawRequest = field.search
+      const keyword = rawRequest.toLowerCase().trim().replace(/\W+\D+/gim, '')
       let query
+
       if (pageNumber && keyword) {
         query = Ad.find({ keywords: { $regex: keyword } }).skip((pageNumber - 1) * limitPerPage).sort('-dateForSort').limit(limitPerPage)
-
-        query.exec((err, ad) => {
-          if (err) console.log(err)
-
-          res.render('index.jade', {
-            ads: ad
-          })
-        })
       } else if (keyword) {
         query = Ad.find({ keywords: { $regex: keyword } }).sort('-dateForSort').limit(limitPerPage)
-
-        query.exec((err, ad) => {
-          if (err) console.log(err)
-
-          res.render('index.jade', {
-            ads: ad
-          })
-        })
-      } else {
-        res.render('index.jade')
       }
-    })
-  },
 
-  // admin panel
-  adminPanel (req, res) {
-    res.render('admin.html')
-  },
-
-  deleteAd (req) {
-    var id = req.params.id
-
-    Ad.findByIdAndRemove(id, function (err, ad) {
-      if (err) throw err
-
-      console.log(ad)
-    })
-  },
-
-  updateDateAd (req) {
-    var id = req.params.id
-
-    // create date, ex.: 30 oct. 2014
-    var monthNames = [ 'ianuarie', 'februarie', 'martie', 'aprilie', 'mai', 'iunie', 'iulie', 'august', 'septembrie', 'octombrie', 'noiembrie', 'decembrie' ]
-    var date = new Date().getDate() + ' ' + monthNames[new Date().getMonth()] + ' ' + new Date().getFullYear()
-
-    Ad.findByIdAndUpdate(id,
-      { $set: { date: date, dateForSort: new Date() } },
-
-      function (err, ad) {
+      query.exec((err, ad) => {
         if (err) console.log(err)
-
-        console.log(ad)
-      }
-    )
+        res.render('index.jade', { ads: ad })
+      })
+    })
   }
 }

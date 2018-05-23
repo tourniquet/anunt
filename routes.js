@@ -19,13 +19,9 @@ const limitPerPage = 30
 module.exports = {
   index (req, res) {
     const pageNumber = req.params.number
-    let query
-
-    if (pageNumber) {
-      query = Ad.find().skip((pageNumber - 1) * limitPerPage).sort('-dateForSort').limit(limitPerPage)
-    } else {
-      query = Ad.find().sort('-dateForSort').limit(limitPerPage)
-    }
+    const query = pageNumber
+      ? Ad.find().skip((pageNumber - 1) * limitPerPage).sort('-dateForSort').limit(limitPerPage)
+      : Ad.find().sort('-dateForSort').limit(limitPerPage)
 
     query.exec((err, ad) => {
       if (err) console.log(err)
@@ -50,11 +46,9 @@ module.exports = {
 
       const images = [files['form-first-image'], files['form-second-image'], files['form-third-image']]
 
-      let rawImagesPath = []
+      const rawImagesPath = []
 
-      images.forEach((el) => {
-        if (el.size) rawImagesPath.push(el.path)
-      })
+      images.forEach(el => if (el.size) rawImagesPath.push(el.path))
 
       // create url slicing current time, if new Date().getTime() = 1422787351345 than url = 87351345
       const url = new Date().getTime().toString().slice(5)
@@ -74,7 +68,7 @@ module.exports = {
       var date = moment().format('D MMMM YYYY')
 
       // new images path array
-      let newImagesPath = []
+      const newImagesPath = []
 
       // process file path
       var clearImagePath = function (image) {
@@ -237,7 +231,7 @@ module.exports = {
     const category = req.params.category
     const pageNumber = req.params.pageNumber
 
-    var query = Ad.where({ category: category }).skip((pageNumber - 1) * limitPerPage).sort('-dateForSort').limit(limitPerPage)
+    const query = Ad.where({ category: category }).skip((pageNumber - 1) * limitPerPage).sort('-dateForSort').limit(limitPerPage)
 
     query.find((err, ad) => {
       if (err) console.log(err)
